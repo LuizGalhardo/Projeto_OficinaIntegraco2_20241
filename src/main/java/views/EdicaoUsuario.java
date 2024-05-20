@@ -34,10 +34,8 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         lblNome = new javax.swing.JLabel();
         lblEmail = new javax.swing.JLabel();
-        lblCampus = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        txtCampus = new javax.swing.JTextField();
         lblTipoUsu = new javax.swing.JLabel();
         btGravar = new javax.swing.JButton();
         lblSenha = new javax.swing.JLabel();
@@ -64,9 +62,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
         lblEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEmail.setText("E - MAIL");
-
-        lblCampus.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblCampus.setText("CPF");
 
         lblTipoUsu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblTipoUsu.setText("TIPO USUÁRIO");
@@ -118,7 +113,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSenha, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtCampus, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtEmail, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtConfirmaSenha)
@@ -138,7 +132,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                             .addComponent(lblTipoUsu)
                             .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblCampus, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tipoUsuarioSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -171,11 +164,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                 .addComponent(lblEmail)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblCampus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtCampus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(63, 63, 63)
                 .addComponent(lblTipoUsu)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tipoUsuarioSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -199,14 +188,13 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
         String nome = txtNome.getText();
         String email = txtEmail.getText();
-        String campus = txtCampus.getText();
         String tipoUsuario = (String) tipoUsuarioSelect.getSelectedItem();
         char[] senhaChars = txtSenha.getPassword();
         String senha = new String(senhaChars);
         char[] confirmaSenhaChars = txtConfirmaSenha.getPassword();
         String confirmaSenha = new String(confirmaSenhaChars);
 
-        if (nome.length() == 0 || email.length() == 0 || campus.length() == 0 || tipoUsuario.length() == 0
+        if (nome.length() == 0 || email.length() == 0 || tipoUsuario.length() == 0
                 || senha.length() == 0 || confirmaSenha.length() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de edição",
                     JOptionPane.ERROR_MESSAGE);
@@ -250,7 +238,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
             txtNome.setText(usuario.getNome());
             txtEmail.setText(usuario.getEmail());
-            txtCampus.setText(usuario.getCampus());
             tipoUsuarioSelect.setSelectedItem(usuario.getTipoUsuario());
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de edição", JOptionPane.ERROR_MESSAGE);
@@ -282,8 +269,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         usuario.setId(Integer.valueOf(txtId.getText()));
         usuario.setNome(txtNome.getText());
         usuario.setEmail(txtEmail.getText());
-        usuario.setCampus(txtCampus.getText());
-        usuario.setTipoUsuario((String) tipoUsuarioSelect.getSelectedItem());
+       //  usuario.setTipoUsuario((String) tipoUsuarioSelect.getSelectedItem());
         usuario.setSenha(new String(txtSenha.getPassword()));
 
         return usuario;
@@ -292,7 +278,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     public void clearTextFields() {
         txtNome.setText("");
         txtEmail.setText("");
-        txtCampus.setText("");
         txtSenha.setText("");
         txtConfirmaSenha.setText("");
         tipoUsuarioSelect.setSelectedItem("Aluno");
@@ -304,7 +289,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JLabel lblCampus;
     private javax.swing.JLabel lblConfSenha;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblId1;
@@ -313,7 +297,6 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel lblTipoUsu;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JComboBox<String> tipoUsuarioSelect;
-    private javax.swing.JTextField txtCampus;
     private javax.swing.JPasswordField txtConfirmaSenha;
     private javax.swing.JTextField txtEmail;
     private javax.swing.JTextField txtId;

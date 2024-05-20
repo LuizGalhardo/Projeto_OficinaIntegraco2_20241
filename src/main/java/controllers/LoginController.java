@@ -12,7 +12,7 @@ public class LoginController {
     public static Usuario handleLogin(String email, String senha) {
         Usuario usuarioLogado = null;
         try {
-            Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina_apoo",
+            Connection connection = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2",
                     "root", "");
             PreparedStatement st = connection
                     .prepareStatement("SELECT id, email, nome, senha FROM usuario WHERE email=? AND senha=?");

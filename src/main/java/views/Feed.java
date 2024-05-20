@@ -46,8 +46,8 @@ public class Feed extends javax.swing.JFrame {
         Collections.sort(itens, Comparator.comparingInt(Filme::getId).reversed());
 
         for (Filme item : itens) {
-            Object[] rowData = { item.getNome(), item.getLocal(), item.getSituacao(), item.getCriadoPor().getNome() };
-            modelo.addRow(rowData);
+            /* Object[] rowData = { item.getNome(), item.getLocal(), item.getSituacao(), item.getCriadoPor().getNome() };
+            modelo.addRow(rowData); */
         }
     }
 
@@ -216,8 +216,8 @@ public class Feed extends javax.swing.JFrame {
             itens = FilmeController.listarItens();
         }
         for (Filme item : itens) {
-            Object[] rowData = { item.getNome(), item.getLocal(), item.getSituacao(), item.getCriadoPor().getNome() };
-            modelo.addRow(rowData);
+            /* Object[] rowData = { item.getNome(), item.getLocal(), item.getSituacao(), item.getCriadoPor().getNome() };
+            modelo.addRow(rowData); */
         }
     }// GEN-LAST:event_botaoPesquisaActionPerformed
 
@@ -226,7 +226,7 @@ public class Feed extends javax.swing.JFrame {
     }
 
     public void abreEdicaoItem() {
-        EdicaoFilme.getEdicaoItem().setVisible(true);
+        // EdicaoFilme.getEdicaoItem().setVisible(true);
     }
 
     public void abreEditaUsuario() {

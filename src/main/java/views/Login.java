@@ -11,7 +11,7 @@ public class Login extends javax.swing.JFrame {
 
     public Login() {
         initComponents();
-        setTitle("Conecta UTFPR - Login");
+        setTitle("Cine UTFPR - Login");
     }
 
     @SuppressWarnings("unchecked")

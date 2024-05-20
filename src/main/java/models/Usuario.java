@@ -1,13 +1,14 @@
 package models;
 
+import enums.TipoUsuario;
+
 public class Usuario {
 
     private Integer id;
     private String nome;
     private String email;
     private String senha;
-    private String campus;
-    private String tipoUsuario;
+    private TipoUsuario tipoUsuario;
 
     public Integer getId() {
         return id;
@@ -32,7 +33,7 @@ public class Usuario {
     public void setEmail(String email) {
         this.email = email;
     }
-
+    
     public String getSenha() {
         return senha;
     }
@@ -40,21 +41,12 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-    public String getCampus() {
-        return campus;
-    }
-
-    public void setCampus(String campus) {
-        this.campus = campus;
-    }
-
-    public String getTipoUsuario() {
+    
+    public TipoUsuario getTipoUsuario() {
         return tipoUsuario;
     }
-
-    public void setTipoUsuario(String tipoUsuario) {
+    
+    public void setTipoUsuario(TipoUsuario tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
-
 }

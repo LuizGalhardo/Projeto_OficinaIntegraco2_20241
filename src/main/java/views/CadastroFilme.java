@@ -3,6 +3,7 @@ package views;
 import models.Filme;
 import models.SessionManager;
 import controllers.FilmeController;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -10,7 +11,7 @@ import javax.swing.UIManager;
 
 public class CadastroFilme extends javax.swing.JFrame {
 
-    private Filme item = new Filme();
+    private Filme filme = new Filme();
     private static CadastroFilme gerItemUnico;
 
     public static CadastroFilme getGerItem() {
@@ -22,7 +23,7 @@ public class CadastroFilme extends javax.swing.JFrame {
 
     public CadastroFilme() {
         initComponents();
-        setTitle("Conecta UTFPR - Cadastro de Item");
+        setTitle("Cine UTFPR - Cadastro de Filme");
     }
 
     @SuppressWarnings("unchecked")
@@ -34,17 +35,18 @@ public class CadastroFilme extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         lblObj = new javax.swing.JLabel();
-        txtNome = new javax.swing.JTextField();
+        txtTitulo = new javax.swing.JTextField();
         lblData = new javax.swing.JLabel();
-        txtData = new javax.swing.JTextField();
         lblLocal = new javax.swing.JLabel();
-        txtLocal = new javax.swing.JTextField();
+        txtDataLancamento = new javax.swing.JTextField();
         lblDesc = new javax.swing.JLabel();
         scrollDesc = new javax.swing.JScrollPane();
-        txtDescricao = new javax.swing.JTextArea();
+        txtElenco = new javax.swing.JTextArea();
         btSair = new javax.swing.JButton();
         botaoSalvar = new javax.swing.JButton();
         lblTitulo = new javax.swing.JLabel();
+        scrollDesc1 = new javax.swing.JScrollPane();
+        txtSinopse = new javax.swing.JTextArea();
 
         jLabel1.setText("Objeto:");
 
@@ -55,48 +57,38 @@ public class CadastroFilme extends javax.swing.JFrame {
         lblObj.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblObj.setText("TÍTULO");
 
-        txtNome.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtTitulo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtNomeMouseEntered(evt);
             }
         });
-        txtNome.addInputMethodListener(new java.awt.event.InputMethodListener() {
+        txtTitulo.addInputMethodListener(new java.awt.event.InputMethodListener() {
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
-                txtNomeInputMethodTextChanged(evt);
             }
         });
-        txtNome.addActionListener(new java.awt.event.ActionListener() {
+        txtTitulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNomeActionPerformed(evt);
             }
         });
 
         lblData.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblData.setText("ELENCO");
 
-        txtData.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDataActionPerformed(evt);
-            }
-        });
-
         lblLocal.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblLocal.setText("DATA DE ESTREIA");
+        lblLocal.setText("DATA DE LANÇAMENTO");
 
-        txtLocal.addActionListener(new java.awt.event.ActionListener() {
+        txtDataLancamento.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtLocalActionPerformed(evt);
             }
         });
 
         lblDesc.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblDesc.setText("SINOPSE");
 
-        txtDescricao.setColumns(20);
-        txtDescricao.setRows(5);
-        scrollDesc.setViewportView(txtDescricao);
+        txtElenco.setColumns(20);
+        txtElenco.setRows(5);
+        scrollDesc.setViewportView(txtElenco);
 
         btSair.setText("Cancelar");
         btSair.addActionListener(new java.awt.event.ActionListener() {
@@ -116,6 +108,10 @@ public class CadastroFilme extends javax.swing.JFrame {
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         lblTitulo.setText("CADASTRO FILME");
 
+        txtSinopse.setColumns(20);
+        txtSinopse.setRows(5);
+        scrollDesc1.setViewportView(txtSinopse);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,22 +119,24 @@ public class CadastroFilme extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNome)
-                    .addComponent(txtLocal)
-                    .addComponent(txtData, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lblTitulo)
-                            .addComponent(lblLocal)
-                            .addComponent(lblObj, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btSair))
-                    .addComponent(scrollDesc, javax.swing.GroupLayout.DEFAULT_SIZE, 542, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblDesc)
-                        .addGap(372, 372, 372)))
-                .addContainerGap())
+                        .addGap(483, 483, 483))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTitulo)
+                            .addComponent(txtDataLancamento)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lblTitulo)
+                                    .addComponent(lblLocal)
+                                    .addComponent(lblObj, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btSair))
+                            .addComponent(scrollDesc)
+                            .addComponent(scrollDesc1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addContainerGap())))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(145, Short.MAX_VALUE)
@@ -155,20 +153,20 @@ public class CadastroFilme extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(lblObj)
                 .addGap(8, 8, 8)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtLocal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(scrollDesc1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
                 .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(96, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                     .addContainerGap(512, Short.MAX_VALUE)
@@ -211,25 +209,25 @@ public class CadastroFilme extends javax.swing.JFrame {
     }// GEN-LAST:event_btSairActionPerformed
 
     private void botaoSalvarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_botaoSalvarActionPerformed
-        String nome = txtNome.getText();
-        String local = txtLocal.getText();
-        String data = txtData.getText();
-        String descricao = txtDescricao.getText();
+        String titulo = txtTitulo.getText();
+        String dataLancamento = txtDataLancamento.getText();
+        String elenco = txtElenco.getText();
+        String sinopse = txtElenco.getText();
 
-        if (nome.length() == 0 || local.length() == 0 || data.length() == 0 || descricao.length() == 0) {
+        if (titulo.length() == 0 || dataLancamento.length() == 0 || elenco.length() == 0 || sinopse.length() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de cadastro",
                     JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Filme item = buildItem();
+        Filme filme = buildItem();
 
         try {
-            Boolean itemCreated = FilmeController.handleCadastro(item);
+            Boolean itemCreated = FilmeController.handleCadastro(filme);
             if (itemCreated) {
                 clearTextFields();
                 dispose();
-                JOptionPane.showMessageDialog(new JFrame(), "Item criado com sucesso!", "Sucesso",
+                JOptionPane.showMessageDialog(new JFrame(), "Filme criado com sucesso!", "Sucesso",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (RuntimeException e) {
@@ -239,22 +237,19 @@ public class CadastroFilme extends javax.swing.JFrame {
     }// GEN-LAST:event_botaoSalvarActionPerformed
 
     public Filme buildItem() {
-        Filme item = new Filme();
-        item.setNome(txtNome.getText());
-        item.setLocal(txtLocal.getText());
-        item.setDataEncontro(txtData.getText());
-        item.setDescricao(txtDescricao.getText());
-        item.setSituacao("Encontrado");
-        item.setCriadoPor(SessionManager.getUsuarioLogado());
-
-        return item;
+        Filme filme = new Filme();
+        filme.setTitulo(txtTitulo.getText());
+        filme.setDataLancamento(txtDataLancamento.getText());
+        filme.setElenco(txtElenco.getText());
+        filme.setSinopse(txtElenco.getText());
+        return filme;
     }
 
     public void clearTextFields() {
-        txtNome.setText("");
-        txtLocal.setText("");
-        txtData.setText("");
-        txtDescricao.setText("");
+        txtTitulo.setText("");
+        txtDataLancamento.setText("");
+        txtElenco.setText("");
+        txtElenco.setText("");
     }
 
     private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtDataActionPerformed
@@ -272,9 +267,10 @@ public class CadastroFilme extends javax.swing.JFrame {
     private javax.swing.JLabel lblObj;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JScrollPane scrollDesc;
-    private javax.swing.JTextField txtData;
-    private javax.swing.JTextArea txtDescricao;
-    private javax.swing.JTextField txtLocal;
-    private javax.swing.JTextField txtNome;
+    private javax.swing.JScrollPane scrollDesc1;
+    private javax.swing.JTextField txtDataLancamento;
+    private javax.swing.JTextArea txtElenco;
+    private javax.swing.JTextArea txtSinopse;
+    private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

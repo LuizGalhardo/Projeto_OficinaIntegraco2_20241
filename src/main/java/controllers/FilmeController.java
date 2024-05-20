@@ -25,7 +25,7 @@ public class FilmeController {
 
             if (resultSet.next()) {
                 // Crie um novo objeto Filme com base nos dados do ResultSet
-                itemEncontrado = new Filme();
+              /*  itemEncontrado = new Filme();
                 itemEncontrado.setId(resultSet.getInt("id"));
                 itemEncontrado.setNome(resultSet.getString("nome"));
                 itemEncontrado.setLocal(resultSet.getString("local"));
@@ -36,7 +36,7 @@ public class FilmeController {
                 int criadoPorId = resultSet.getInt("criado_por");
                 Usuario criadoPor = UsuarioController.buscarUsuarioPorId(Integer.toString(criadoPorId));
 
-                itemEncontrado.setCriadoPor(criadoPor);
+                itemEncontrado.setCriadoPor(criadoPor);*/
             } else {
                 throw new RuntimeException("Item não encontrado!");
             }
@@ -56,7 +56,7 @@ public class FilmeController {
                 ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-                Filme item = new Filme();
+              /*  Filme item = new Filme();
                 item.setId(resultSet.getInt("id"));
                 item.setNome(resultSet.getString("nome"));
                 item.setLocal(resultSet.getString("local"));
@@ -68,7 +68,7 @@ public class FilmeController {
                 Usuario criadoPor = UsuarioController.buscarUsuarioPorId(Integer.toString(criadoPorId));
 
                 item.setCriadoPor(criadoPor);
-                itens.add(item);
+                itens.add(item);*/
             }
 
         } catch (SQLException e) {
@@ -80,18 +80,16 @@ public class FilmeController {
 
     public static Boolean handleCadastro(Filme item) {
         try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina_apoo",
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2",
                     "root", "");
 
             PreparedStatement st = connection.prepareStatement(
-                    "INSERT INTO item (nome, local, descricao, data_encontro, situacao, criado_por, atualizado_por) VALUES (?, ?, ?, ?, ?, ?, null)");
+                    "INSERT INTO filme (titulo, data_lancamento, elenco, sinopse) VALUES (?, ?, ?, ?)");
 
-            st.setString(1, item.getNome());
-            st.setString(2, item.getLocal());
-            st.setString(3, item.getDescricao());
-            st.setString(4, item.getDataEncontro());
-            st.setString(5, item.getSituacao());
-            st.setInt(6, item.getCriadoPor().getId());
+            st.setString(1, item.getTitulo());
+            st.setString(2, item.getDataLancamento());
+            st.setString(3, item.getElenco());
+            st.setString(4, item.getSinopse());
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
@@ -116,7 +114,7 @@ public class FilmeController {
             ResultSet resultSet = statement.executeQuery();
 
             while (resultSet.next()) {
-                Filme item = new Filme();
+             /*   Filme item = new Filme();
                 item.setId(resultSet.getInt("id"));
                 item.setNome(resultSet.getString("nome"));
                 item.setLocal(resultSet.getString("local"));
@@ -129,7 +127,7 @@ public class FilmeController {
 
                 item.setCriadoPor(criadoPor);
 
-                itensEncontrados.add(item);
+                itensEncontrados.add(item);*/
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -144,14 +142,14 @@ public class FilmeController {
                 PreparedStatement statement = connection.prepareStatement(
                         "UPDATE item SET nome = ?, local = ?, descricao = ?, data_encontro = ?, situacao = ?, atualizado_por = ? WHERE id = ?")) {
 
-            statement.setString(1, item.getNome());
+          /*  statement.setString(1, item.getNome());
             statement.setString(2, item.getLocal());
             statement.setString(3, item.getDescricao());
             statement.setString(4, item.getDataEncontro());
             statement.setString(5, item.getSituacao());
             statement.setInt(6, item.getAlteradoPor().getId());
             statement.setInt(7, item.getId());
-
+*/
             int rowsUpdated = statement.executeUpdate();
 
             return rowsUpdated > 0;

@@ -3,13 +3,10 @@ package models;
 public class Filme {
 
     private Integer id;
-    private String nome;
-    private String local;
-    private String situacao;
-    private String descricao;
-    private String dataEncontro;
-    private Usuario criadoPor;
-    private Usuario alteradoPor;
+    private String titulo;
+    private String dataLancamento;
+    private String elenco;
+    private String sinopse;
 
     public Integer getId() {
         return id;
@@ -19,60 +16,35 @@ public class Filme {
         this.id = id;
     }
 
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
 
-    public String getLocal() {
-        return local;
+    public String getDataLancamento() {
+        return dataLancamento;
     }
 
-    public void setLocal(String local) {
-        this.local = local;
+    public void setDataLancamento(String dataLancamento) {
+        this.dataLancamento = dataLancamento;
     }
 
-    public String getSituacao() {
-        return situacao;
+    public String getElenco() {
+        return elenco;
     }
 
-    public void setSituacao(String situacao) {
-        this.situacao = situacao;
+    public void setElenco(String elenco) {
+        this.elenco = elenco;
     }
 
-    public String getDescricao() {
-        return descricao;
+    public String getSinopse() {
+        return sinopse;
     }
 
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
+    public void setSinopse(String sinopse) {
+        this.sinopse = sinopse;
     }
-
-    public String getDataEncontro() {
-        return dataEncontro;
-    }
-
-    public void setDataEncontro(String dataEncontro) {
-        this.dataEncontro = dataEncontro;
-    }
-
-    public Usuario getCriadoPor() {
-        return criadoPor;
-    }
-
-    public void setCriadoPor(Usuario criadoPor) {
-        this.criadoPor = criadoPor;
-    }
-
-    public Usuario getAlteradoPor() {
-        return alteradoPor;
-    }
-
-    public void setAlteradoPor(Usuario alteradoPor) {
-        this.alteradoPor = alteradoPor;
-    }
-
 }
