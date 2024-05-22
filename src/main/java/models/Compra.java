@@ -10,6 +10,7 @@ package models;
  */
 public class Compra {
     private Integer id;
+    private String quantidade;
     private Filme filme;
     private Usuario usuario;
 
@@ -35,5 +36,13 @@ public class Compra {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public String getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(String quantidade) {
+        this.quantidade = quantidade;
     }
 }

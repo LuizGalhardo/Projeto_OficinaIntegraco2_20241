@@ -235,6 +235,9 @@ public class CadastroFilme extends javax.swing.JFrame {
         String elenco = txtElenco.getText();
         String sinopse = txtElenco.getText();
         String preco = txtPreco.getText();
+        
+        System.out.println("PREÇO");
+        System.out.println(preco);
 
         if (titulo.length() == 0 || dataLancamento.length() == 0 || preco.length() == 0 || elenco.length() == 0 || sinopse.length() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de cadastro",
@@ -272,7 +275,8 @@ public class CadastroFilme extends javax.swing.JFrame {
         txtTitulo.setText("");
         txtDataLancamento.setText("");
         txtElenco.setText("");
-        txtElenco.setText("");
+        txtPreco.setText("");
+        txtSinopse.setText("");
     }
 
     private void txtDataActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtDataActionPerformed

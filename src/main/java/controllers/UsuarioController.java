@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import models.Usuario;
 
 public class UsuarioController {
@@ -48,14 +47,14 @@ public class UsuarioController {
         return false;
     }
 
-    public static Usuario buscarUsuarioPorId(String id) {
+    public static Usuario buscarUsuarioPorId(int id) {
         Usuario usuario = null;
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root",
                 "");
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM usuario WHERE id = ?")) {
 
-            statement.setString(1, id);
+            statement.setInt(1, id);
             ResultSet resultSet = statement.executeQuery();
 
             if (resultSet.next()) {

@@ -17,7 +17,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         initComponents();
         setTitle("Cine UTFPR - Minha Conta");
         var usuarioLogado = SessionManager.getUsuarioLogado();
-        Usuario usuario = UsuarioController.buscarUsuarioPorId(usuarioLogado.getId().toString());
+        Usuario usuario = UsuarioController.buscarUsuarioPorId(usuarioLogado.getId());
         txtNome.setText(usuario.getNome());
         txtEmail.setText(usuario.getEmail());
     }
@@ -32,7 +32,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
     public static EdicaoUsuario get() {
         EdicaoUsuario instance = getEditaUsuario();
         var usuarioLogado = SessionManager.getUsuarioLogado();
-        Usuario usuario = UsuarioController.buscarUsuarioPorId(usuarioLogado.getId().toString());
+        Usuario usuario = UsuarioController.buscarUsuarioPorId(usuarioLogado.getId());
         instance.txtNome.setText(usuario.getNome());
         instance.txtEmail.setText(usuario.getEmail());
         return instance;
@@ -211,7 +211,7 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed        
         try {
-            Usuario usuario = UsuarioController.buscarUsuarioPorId(SessionManager.getUsuarioLogado().getId().toString());
+            Usuario usuario = UsuarioController.buscarUsuarioPorId(SessionManager.getUsuarioLogado().getId());
 
             txtNome.setText(usuario.getNome());
             txtEmail.setText(usuario.getEmail());
