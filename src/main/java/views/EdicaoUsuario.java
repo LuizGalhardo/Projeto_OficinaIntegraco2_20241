@@ -7,6 +7,7 @@ import models.Usuario;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
+import models.SessionManager;
 
 public class EdicaoUsuario extends javax.swing.JFrame {
 
@@ -14,7 +15,11 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
     public EdicaoUsuario() {
         initComponents();
-        setTitle("Conecta UTFPR - Edição de Usuário");
+        setTitle("Cine UTFPR - Minha Conta");
+        var usuarioLogado = SessionManager.getUsuarioLogado();
+        Usuario usuario = UsuarioController.buscarUsuarioPorId(usuarioLogado.getId().toString());
+        txtNome.setText(usuario.getNome());
+        txtEmail.setText(usuario.getEmail());
     }
 
     public static EdicaoUsuario getEditaUsuario() {
@@ -22,6 +27,15 @@ public class EdicaoUsuario extends javax.swing.JFrame {
             cadUsuarioUnico = new EdicaoUsuario();
         }
         return cadUsuarioUnico;
+    }
+    
+    public static EdicaoUsuario get() {
+        EdicaoUsuario instance = getEditaUsuario();
+        var usuarioLogado = SessionManager.getUsuarioLogado();
+        Usuario usuario = UsuarioController.buscarUsuarioPorId(usuarioLogado.getId().toString());
+        instance.txtNome.setText(usuario.getNome());
+        instance.txtEmail.setText(usuario.getEmail());
+        return instance;
     }
 
     @SuppressWarnings("unchecked")
@@ -36,17 +50,12 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         lblEmail = new javax.swing.JLabel();
         txtNome = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
-        lblTipoUsu = new javax.swing.JLabel();
         btGravar = new javax.swing.JButton();
         lblSenha = new javax.swing.JLabel();
         lblConfSenha = new javax.swing.JLabel();
-        tipoUsuarioSelect = new javax.swing.JComboBox<>();
         txtSenha = new javax.swing.JPasswordField();
         txtConfirmaSenha = new javax.swing.JPasswordField();
-        txtId = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
-        jLabel1 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
 
         lblId1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -55,16 +64,13 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblTitulo.setText("EDITAR USUÁRIO");
+        lblTitulo.setText("EDITAR DADOS");
 
         lblNome.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblNome.setText("NOME");
 
         lblEmail.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblEmail.setText("E - MAIL");
-
-        lblTipoUsu.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lblTipoUsu.setText("TIPO USUÁRIO");
 
         btGravar.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btGravar.setText("SALVAR");
@@ -80,23 +86,11 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         lblConfSenha.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblConfSenha.setText("CONFIRMAR SENHA ");
 
-        tipoUsuarioSelect.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Aluno", "Professor", "Visitante" }));
-
-        txtId.addActionListener(new java.awt.event.ActionListener() {
+        txtSenha.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIdActionPerformed(evt);
+                txtSenhaActionPerformed(evt);
             }
         });
-
-        jButton1.setText("Pesquisar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel1.setText("ID");
 
         jButton2.setText("Cancelar");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -117,27 +111,20 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                     .addComponent(txtNome, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(txtConfirmaSenha)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblTitulo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 88, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 117, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(lblTitulo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 167, Short.MAX_VALUE)
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addComponent(lblConfSenha)
-                            .addComponent(lblTipoUsu)
                             .addComponent(lblNome, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(tipoUsuarioSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(lblSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 284, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(106, 106, 106)
+                .addGap(104, 104, 104)
                 .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 228, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -149,52 +136,45 @@ public class EdicaoUsuario extends javax.swing.JFrame {
                     .addComponent(lblTitulo)
                     .addComponent(jButton2))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblEmail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(63, 63, 63)
-                .addComponent(lblTipoUsu)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tipoUsuarioSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
+                .addComponent(lblNome)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblSenha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(lblConfSenha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtConfirmaSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(btGravar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSenhaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSenhaActionPerformed
+
     private void btGravarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btGravarActionPerformed
 
         String nome = txtNome.getText();
         String email = txtEmail.getText();
-        String tipoUsuario = (String) tipoUsuarioSelect.getSelectedItem();
         char[] senhaChars = txtSenha.getPassword();
         String senha = new String(senhaChars);
         char[] confirmaSenhaChars = txtConfirmaSenha.getPassword();
         String confirmaSenha = new String(confirmaSenhaChars);
 
-        if (nome.length() == 0 || email.length() == 0 || tipoUsuario.length() == 0
+        if (nome.length() == 0 || email.length() == 0
                 || senha.length() == 0 || confirmaSenha.length() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de edição",
                     JOptionPane.ERROR_MESSAGE);
@@ -218,10 +198,9 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         try {
             Boolean userEdited = UsuarioController.handleEdicao(usuario);
             if (userEdited) {
-                txtId.setText("");
                 clearTextFields();
                 dispose();
-                JOptionPane.showMessageDialog(new JFrame(), "Usuário editado com sucesso!", "Sucesso",
+                JOptionPane.showMessageDialog(new JFrame(), "Dados atualizados com sucesso!", "Sucesso",
                         JOptionPane.INFORMATION_MESSAGE);
             }
         } catch (RuntimeException e) {
@@ -230,15 +209,12 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
     }// GEN-LAST:event_btGravarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed
-        String id = txtId.getText();
-
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButton1ActionPerformed        
         try {
-            Usuario usuario = UsuarioController.buscarUsuarioPorId(id);
+            Usuario usuario = UsuarioController.buscarUsuarioPorId(SessionManager.getUsuarioLogado().getId().toString());
 
             txtNome.setText(usuario.getNome());
             txtEmail.setText(usuario.getEmail());
-            tipoUsuarioSelect.setSelectedItem(usuario.getTipoUsuario());
         } catch (RuntimeException e) {
             JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de edição", JOptionPane.ERROR_MESSAGE);
         }
@@ -266,12 +242,10 @@ public class EdicaoUsuario extends javax.swing.JFrame {
 
     public Usuario buildUsuario() {
         Usuario usuario = new Usuario();
-        usuario.setId(Integer.valueOf(txtId.getText()));
+        usuario.setId(Integer.valueOf(SessionManager.getUsuarioLogado().getId().toString()));
         usuario.setNome(txtNome.getText());
         usuario.setEmail(txtEmail.getText());
-       //  usuario.setTipoUsuario((String) tipoUsuarioSelect.getSelectedItem());
         usuario.setSenha(new String(txtSenha.getPassword()));
-
         return usuario;
     }
 
@@ -280,26 +254,20 @@ public class EdicaoUsuario extends javax.swing.JFrame {
         txtEmail.setText("");
         txtSenha.setText("");
         txtConfirmaSenha.setText("");
-        tipoUsuarioSelect.setSelectedItem("Aluno");
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btGravar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblConfSenha;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblId1;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblSenha;
-    private javax.swing.JLabel lblTipoUsu;
     private javax.swing.JLabel lblTitulo;
-    private javax.swing.JComboBox<String> tipoUsuarioSelect;
     private javax.swing.JPasswordField txtConfirmaSenha;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtNome;
     private javax.swing.JPasswordField txtSenha;
     // End of variables declaration//GEN-END:variables

@@ -7,6 +7,7 @@ public class Filme {
     private String dataLancamento;
     private String elenco;
     private String sinopse;
+    private String preco;
 
     public Integer getId() {
         return id;
@@ -46,5 +47,13 @@ public class Filme {
 
     public void setSinopse(String sinopse) {
         this.sinopse = sinopse;
+    }
+    
+    public String getPreco() {
+        return preco;
+    }
+    
+    public void setPreco(String preco) {
+        this.preco = preco;
     }
 }

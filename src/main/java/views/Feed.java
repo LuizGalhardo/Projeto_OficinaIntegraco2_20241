@@ -2,7 +2,10 @@
 package views;
 
 import controllers.FilmeController;
+import enums.TipoUsuario;
 import models.Filme;
+import models.SessionManager;
+
 import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
@@ -21,7 +24,7 @@ public class Feed extends javax.swing.JFrame {
 
     public Feed() {
         initComponents();
-        setTitle("Conecta UTFPR - Feed");
+        setTitle("Cine UTFPR - Feed");
 
         DefaultTableModel modelo = (DefaultTableModel) tableFeed.getModel();
         int rowCount = modelo.getRowCount();
@@ -62,11 +65,10 @@ public class Feed extends javax.swing.JFrame {
         botaoPesquisa = new javax.swing.JButton();
         txtPesquisa = new java.awt.TextField();
         lblTitulo = new javax.swing.JLabel();
-        butComprar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         menuPrincipal = new javax.swing.JMenuBar();
         gerItem = new javax.swing.JMenu();
         CadItem = new javax.swing.JMenuItem();
-        EditItem = new javax.swing.JMenuItem();
         gerUsuario = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
 
@@ -94,7 +96,7 @@ public class Feed extends javax.swing.JFrame {
         }
 
         lblPesq.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPesq.setText("PESQUISAR FILME");
+        lblPesq.setText("Pesquisar Filme");
 
         botaoPesquisa.setLabel("Pesquisar");
         botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -110,14 +112,18 @@ public class Feed extends javax.swing.JFrame {
         });
 
         lblTitulo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        lblTitulo.setText("FILMES EM CARTAZ");
+        lblTitulo.setText("Minhas Compras");
 
-        butComprar.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        butComprar.setText("COMPRAR FILME");
+        jButton1.setText("Comprar Filmes");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
-        gerItem.setText("FILME");
+        gerItem.setText("Filme");
 
-        CadItem.setText("CADASTRO");
+        CadItem.setText("Cadastro");
         CadItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CadItemActionPerformed(evt);
@@ -125,19 +131,11 @@ public class Feed extends javax.swing.JFrame {
         });
         gerItem.add(CadItem);
 
-        EditItem.setText("EDITAR");
-        EditItem.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EditItemActionPerformed(evt);
-            }
-        });
-        gerItem.add(EditItem);
-
         menuPrincipal.add(gerItem);
 
-        gerUsuario.setText("CONTA");
+        gerUsuario.setText("Minha Conta");
 
-        jMenuItem1.setText("EDITAR");
+        jMenuItem1.setText("Editar Dados");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -163,9 +161,9 @@ public class Feed extends javax.swing.JFrame {
                         .addComponent(botaoPesquisa, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jButton1)
                             .addComponent(lblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 441, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblPesq)
-                            .addComponent(butComprar, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblPesq))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -178,17 +176,22 @@ public class Feed extends javax.swing.JFrame {
                 .addComponent(lblPesq)
                 .addGap(2, 2, 2)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(botaoPesquisa)
-                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtPesquisa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(botaoPesquisa))
                 .addGap(32, 32, 32)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(butComprar)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addGap(33, 33, 33)
+                .addComponent(jButton1)
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CadastroCompra.getGerCompra().setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtPesquisaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtPesquisaActionPerformed
         // TODO add your handling code here:
@@ -231,15 +234,15 @@ public class Feed extends javax.swing.JFrame {
 
     public void abreEditaUsuario() {
         EdicaoUsuario.getEditaUsuario().setVisible(true);
+        EdicaoUsuario.get();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem CadItem;
-    private javax.swing.JMenuItem EditItem;
     private javax.swing.JButton botaoPesquisa;
-    private javax.swing.JButton butComprar;
     private javax.swing.JMenu gerItem;
     private javax.swing.JMenu gerUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesq;

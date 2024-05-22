@@ -16,9 +16,9 @@ public class FilmeController {
     public static Filme buscarItemPorId(String id) {
         Filme itemEncontrado = null;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina_apoo", "root",
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root",
                 "");
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM item WHERE id = ?")) {
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM filme WHERE id = ?")) {
 
             statement.setString(1, id);
             ResultSet resultSet = statement.executeQuery();
@@ -50,9 +50,9 @@ public class FilmeController {
     public static List<Filme> listarItens() {
         List<Filme> itens = new ArrayList<>();
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina_apoo", "root",
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root",
                 "");
-                PreparedStatement statement = connection.prepareStatement("SELECT * FROM item");
+                PreparedStatement statement = connection.prepareStatement("SELECT * FROM filme");
                 ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {

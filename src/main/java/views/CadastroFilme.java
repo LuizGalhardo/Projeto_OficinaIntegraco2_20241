@@ -47,6 +47,8 @@ public class CadastroFilme extends javax.swing.JFrame {
         lblTitulo = new javax.swing.JLabel();
         scrollDesc1 = new javax.swing.JScrollPane();
         txtSinopse = new javax.swing.JTextArea();
+        lblLocal1 = new javax.swing.JLabel();
+        txtPreco = new javax.swing.JTextField();
 
         jLabel1.setText("Objeto:");
 
@@ -106,16 +108,29 @@ public class CadastroFilme extends javax.swing.JFrame {
         });
 
         lblTitulo.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblTitulo.setText("CADASTRO FILME");
+        lblTitulo.setText("CADASTRO DE FILME");
 
         txtSinopse.setColumns(20);
         txtSinopse.setRows(5);
         scrollDesc1.setViewportView(txtSinopse);
 
+        lblLocal1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblLocal1.setText("PREÇO");
+
+        txtPreco.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtPrecoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(138, 138, 138))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,25 +138,26 @@ public class CadastroFilme extends javax.swing.JFrame {
                         .addComponent(lblDesc)
                         .addGap(483, 483, 483))
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblLocal1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTitulo)
                             .addComponent(txtDataLancamento)
+                            .addComponent(txtTitulo)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(lblTitulo)
                                     .addComponent(lblLocal)
-                                    .addComponent(lblObj, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(lblObj, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btSair))
                             .addComponent(scrollDesc)
-                            .addComponent(scrollDesc1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(scrollDesc1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(txtPreco))
                         .addContainerGap())))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(145, Short.MAX_VALUE)
-                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(139, 139, 139)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,24 +174,29 @@ public class CadastroFilme extends javax.swing.JFrame {
                 .addComponent(lblLocal, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDataLancamento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblLocal1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtPreco, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(24, 24, 24)
                 .addComponent(lblData, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollDesc1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addContainerGap(512, Short.MAX_VALUE)
-                    .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(20, 20, 20)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(botaoSalvar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtPrecoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtPrecoActionPerformed
 
     private void txtNomeMouseEntered(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_txtNomeMouseEntered
         // TODO add your handling code here:
@@ -213,8 +234,9 @@ public class CadastroFilme extends javax.swing.JFrame {
         String dataLancamento = txtDataLancamento.getText();
         String elenco = txtElenco.getText();
         String sinopse = txtElenco.getText();
+        String preco = txtPreco.getText();
 
-        if (titulo.length() == 0 || dataLancamento.length() == 0 || elenco.length() == 0 || sinopse.length() == 0) {
+        if (titulo.length() == 0 || dataLancamento.length() == 0 || preco.length() == 0 || elenco.length() == 0 || sinopse.length() == 0) {
             JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de cadastro",
                     JOptionPane.ERROR_MESSAGE);
             return;
@@ -241,7 +263,8 @@ public class CadastroFilme extends javax.swing.JFrame {
         filme.setTitulo(txtTitulo.getText());
         filme.setDataLancamento(txtDataLancamento.getText());
         filme.setElenco(txtElenco.getText());
-        filme.setSinopse(txtElenco.getText());
+        filme.setSinopse(txtSinopse.getText());
+        filme.setPreco(txtPreco.getText());
         return filme;
     }
 
@@ -264,12 +287,14 @@ public class CadastroFilme extends javax.swing.JFrame {
     private javax.swing.JLabel lblData;
     private javax.swing.JLabel lblDesc;
     private javax.swing.JLabel lblLocal;
+    private javax.swing.JLabel lblLocal1;
     private javax.swing.JLabel lblObj;
     private javax.swing.JLabel lblTitulo;
     private javax.swing.JScrollPane scrollDesc;
     private javax.swing.JScrollPane scrollDesc1;
     private javax.swing.JTextField txtDataLancamento;
     private javax.swing.JTextArea txtElenco;
+    private javax.swing.JTextField txtPreco;
     private javax.swing.JTextArea txtSinopse;
     private javax.swing.JTextField txtTitulo;
     // End of variables declaration//GEN-END:variables

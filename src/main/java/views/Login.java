@@ -148,8 +148,8 @@ public class Login extends javax.swing.JFrame {
         Usuario authenticatedUser = LoginController.handleLogin(email, senha);
 
         if (authenticatedUser != null) {
-            abreFeed();
             SessionManager.setUsuarioLogado(authenticatedUser);
+            abreFeed();
             dispose();
         } else {
             JOptionPane.showMessageDialog(null, "Credenciais inválidas!", "Erro de autenticação",

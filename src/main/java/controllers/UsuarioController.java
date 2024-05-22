@@ -1,5 +1,6 @@
 package controllers;
 
+import enums.TipoUsuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -50,7 +51,7 @@ public class UsuarioController {
     public static Usuario buscarUsuarioPorId(String id) {
         Usuario usuario = null;
 
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina2", "root",
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root",
                 "");
                 PreparedStatement statement = connection.prepareStatement("SELECT * FROM usuario WHERE id = ?")) {
 
@@ -63,8 +64,14 @@ public class UsuarioController {
                 usuario.setNome(resultSet.getString("nome"));
                 usuario.setEmail(resultSet.getString("email"));
                 usuario.setSenha(resultSet.getString("senha"));
-               //  usuario.setCampus(resultSet.getString("campus"));
-               //  usuario.setTipoUsuario(resultSet.getString("tipo_usuario"));
+
+                String tipoUsuario = resultSet.getString("tipo_usuario");
+                
+                if (tipoUsuario.equals("CLIENTE")) {
+                    usuario.setTipoUsuario(TipoUsuario.CLIENTE);
+                } else {
+                    usuario.setTipoUsuario(TipoUsuario.FUNCIONARIO);
+                }
             } else {
                 throw new RuntimeException("Usuário não encontrado!");
             }
@@ -77,17 +84,15 @@ public class UsuarioController {
     }
 
     public static Boolean handleEdicao(Usuario usuario) {
-        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina2", "root",
+        try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root",
                 "");
                 PreparedStatement statement = connection.prepareStatement(
-                        "UPDATE usuario SET nome = ?, senha = ?, campus = ?, tipo_usuario = ?, email = ? WHERE id = ?")) {
+                        "UPDATE usuario SET nome = ?, senha = ?, email = ? WHERE id = ?")) {
 
             statement.setString(1, usuario.getNome());
             statement.setString(2, usuario.getSenha());
-           //  statement.setString(3, usuario.getCampus());
-           //  statement.setString(4, usuario.getTipoUsuario());
-            statement.setString(5, usuario.getEmail());
-            statement.setInt(6, usuario.getId());
+            statement.setString(3, usuario.getEmail());
+            statement.setInt(4, usuario.getId());
 
             int rowsUpdated = statement.executeUpdate();
 
