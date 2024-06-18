@@ -47,7 +47,7 @@ public class FilmeController {
         return itemEncontrado;
     }
 
-    public static List<Filme> listarItens() {
+    public static List<Filme> listarFilmes() {
         List<Filme> itens = new ArrayList<>();
 
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root",
@@ -56,19 +56,14 @@ public class FilmeController {
                 ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
-              /*  Filme item = new Filme();
+              Filme item = new Filme();
                 item.setId(resultSet.getInt("id"));
-                item.setNome(resultSet.getString("nome"));
-                item.setLocal(resultSet.getString("local"));
-                item.setDescricao(resultSet.getString("descricao"));
-                item.setDataEncontro(resultSet.getString("data_encontro"));
-                item.setSituacao(resultSet.getString("situacao"));
-
-                int criadoPorId = resultSet.getInt("criado_por");
-                Usuario criadoPor = UsuarioController.buscarUsuarioPorId(Integer.toString(criadoPorId));
-
-                item.setCriadoPor(criadoPor);
-                itens.add(item);*/
+                item.setTitulo(resultSet.getString("titulo"));
+                item.setDataLancamento(resultSet.getString("data_lancamento"));
+                item.setElenco(resultSet.getString("elenco"));
+                item.setSinopse(resultSet.getString("sinopse"));
+                item.setPreco(resultSet.getString("preco"));
+                itens.add(item);
             }
 
         } catch (SQLException e) {
@@ -84,12 +79,13 @@ public class FilmeController {
                     "root", "");
 
             PreparedStatement st = connection.prepareStatement(
-                    "INSERT INTO filme (titulo, data_lancamento, elenco, sinopse) VALUES (?, ?, ?, ?)");
+                    "INSERT INTO filme (titulo, data_lancamento, elenco, sinopse, preco) VALUES (?, ?, ?, ?, ?)");
 
             st.setString(1, item.getTitulo());
             st.setString(2, item.getDataLancamento());
             st.setString(3, item.getElenco());
             st.setString(4, item.getSinopse());
+            st.setString(5, item.getPreco());
 
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
@@ -135,6 +131,32 @@ public class FilmeController {
 
         return itensEncontrados;
     }
+    
+    public static Filme buscarPorId(int id) {
+       Filme filme = null;
+
+       try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:4306/oficina2", "root", "");
+            PreparedStatement statement = connection.prepareStatement("SELECT * FROM filme WHERE id = ?")) {
+
+           statement.setInt(1, id);
+           ResultSet resultSet = statement.executeQuery();
+
+           if (resultSet.next()) {
+               filme = new Filme();
+               filme.setId(resultSet.getInt("id"));
+               filme.setTitulo(resultSet.getString("titulo"));
+               filme.setDataLancamento(resultSet.getString("data_lancamento"));
+               filme.setElenco(resultSet.getString("elenco"));
+               filme.setSinopse(resultSet.getString("sinopse"));
+           } else {
+               throw new RuntimeException("Filme não encontrado!");
+           }
+       } catch (SQLException e) {
+           e.printStackTrace();
+       }
+
+       return filme;
+   }
 
     public static Boolean handleEdicao(Filme item) {
         try (Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/oficina_apoo", "root",

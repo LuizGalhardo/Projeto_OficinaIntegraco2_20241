@@ -4,10 +4,18 @@
  */
 package views;
 
+import controllers.CompraController;
+import controllers.FilmeController;
+import java.util.List;
+import java.util.Optional;
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import models.Compra;
 import models.Filme;
+import models.SessionManager;
 
 /**
  *
@@ -28,6 +36,16 @@ public class CadastroCompra extends javax.swing.JFrame {
     public CadastroCompra() {
         initComponents();
         setTitle("Cine UTFPR - Comprar Filme");
+
+        List<Filme> filmes = FilmeController.listarFilmes();
+        
+        String[] nomesFilmes = new String[filmes.size()];
+        
+        for (int i = 0; i < filmes.size(); i++) {
+            nomesFilmes[i] = filmes.get(i).getTitulo(); 
+        }
+        
+        jComboBox1.setModel(new DefaultComboBoxModel<>(nomesFilmes));
     }
 
     /**
@@ -44,7 +62,7 @@ public class CadastroCompra extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtQuantidade = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -59,7 +77,6 @@ public class CadastroCompra extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -72,8 +89,19 @@ public class CadastroCompra extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Quantidade");
 
+        txtQuantidade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtQuantidadeActionPerformed(evt);
+            }
+        });
+
         jButton2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jButton2.setText("SALVAR");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -90,7 +118,7 @@ public class CadastroCompra extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtQuantidade, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(lblTitulo)
@@ -116,7 +144,7 @@ public class CadastroCompra extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtQuantidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63)
                 .addComponent(jButton2)
                 .addContainerGap(98, Short.MAX_VALUE))
@@ -143,6 +171,51 @@ public class CadastroCompra extends javax.swing.JFrame {
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        var usuario = SessionManager.getUsuarioLogado().getNome();
+        String quantidade = txtQuantidade.getText();
+
+        String filmeSelecionado = (String) jComboBox1.getSelectedItem();
+
+        List<Filme> filmes = FilmeController.listarFilmes();
+        Optional<Filme> filmeOptional = filmes.stream()
+                                              .filter(filme -> filme.getTitulo().equals(filmeSelecionado))
+                                              .findFirst();
+
+        Filme filme = filmeOptional.orElse(null);
+
+        if (quantidade.length() == 0) {
+            JOptionPane.showMessageDialog(null, "Preencha todos os campos!", "Erro de cadastro",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
+        Compra compra = new Compra();
+        compra.setQuantidade(quantidade);
+        compra.setUsuario(SessionManager.getUsuarioLogado());
+        compra.setFilme(filme);
+ 
+        try {
+            Boolean itemCreated = CompraController.handleCadastro(compra);
+            if (itemCreated) {
+                clearTextFields();
+                dispose();
+                JOptionPane.showMessageDialog(new JFrame(), "Compra criada com sucesso!", "Sucesso",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Erro de cadastro", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void clearTextFields() {
+        txtQuantidade.setText("");
+    }
+
+    private void txtQuantidadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtQuantidadeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtQuantidadeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -185,7 +258,7 @@ public class CadastroCompra extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblTitulo;
+    private javax.swing.JTextField txtQuantidade;
     // End of variables declaration//GEN-END:variables
 }

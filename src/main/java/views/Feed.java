@@ -1,6 +1,6 @@
-
 package views;
 
+import controllers.CompraController;
 import controllers.FilmeController;
 import enums.TipoUsuario;
 import models.Filme;
@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import javax.swing.table.DefaultTableModel;
 import java.util.List;
+import models.Compra;
 
 public class Feed extends javax.swing.JFrame {
 
@@ -45,12 +46,11 @@ public class Feed extends javax.swing.JFrame {
             }
         }
 
-        List<Filme> itens = FilmeController.listarItens();
-        Collections.sort(itens, Comparator.comparingInt(Filme::getId).reversed());
+        List<Compra> compras = CompraController.listarComprasPorUsuario(SessionManager.getUsuarioLogado().getId());
 
-        for (Filme item : itens) {
-            /* Object[] rowData = { item.getNome(), item.getLocal(), item.getSituacao(), item.getCriadoPor().getNome() };
-            modelo.addRow(rowData); */
+        for (Compra compra : compras) {
+            Object[] rowData = {compra.getFilme().getTitulo(), compra.getFilme().getDataLancamento(), compra.getFilme().getElenco(), compra.getFilme().getSinopse(), compra.getQuantidade() };
+            modelo.addRow(rowData);
         }
     }
 
@@ -77,14 +77,15 @@ public class Feed extends javax.swing.JFrame {
         tableFeed.setFont(new java.awt.Font("Tahoma", 1, 10)); // NOI18N
         tableFeed.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "TÍTULO", "DATA DE ESTREIA", "ELENCO", "SINOPSE"
+                "Título", "Data de Lançamento", "Elenco", "Sinopse", "Quantidade"
             }
         ));
         jScrollPane1.setViewportView(tableFeed);
@@ -96,7 +97,7 @@ public class Feed extends javax.swing.JFrame {
         }
 
         lblPesq.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lblPesq.setText("Pesquisar Filme");
+        lblPesq.setText("Pesquisar Filme pelo Nome");
 
         botaoPesquisa.setLabel("Pesquisar");
         botaoPesquisa.addActionListener(new java.awt.event.ActionListener() {
@@ -131,7 +132,11 @@ public class Feed extends javax.swing.JFrame {
         });
         gerItem.add(CadItem);
 
-        menuPrincipal.add(gerItem);
+        boolean isCliente = SessionManager.getUsuarioLogado().getTipoUsuario().equals(TipoUsuario.CLIENTE);
+
+        if (!isCliente) {
+            menuPrincipal.add(gerItem);
+        }
 
         gerUsuario.setText("Minha Conta");
 
@@ -211,16 +216,17 @@ public class Feed extends javax.swing.JFrame {
 
     private void botaoPesquisaActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_botaoPesquisaActionPerformed
         String nome = txtPesquisa.getText();
-        List<Filme> itens = FilmeController.buscarItensPorNome(nome);
+        List<Compra> compras = CompraController.buscarComprasPorNomeFilme(nome);
 
         DefaultTableModel modelo = (DefaultTableModel) tableFeed.getModel();
         modelo.setRowCount(0);
         if (nome.isEmpty()) {
-            itens = FilmeController.listarItens();
+            compras = CompraController.listarComprasPorUsuario(SessionManager.getUsuarioLogado().getId());
         }
-        for (Filme item : itens) {
-            /* Object[] rowData = { item.getNome(), item.getLocal(), item.getSituacao(), item.getCriadoPor().getNome() };
-            modelo.addRow(rowData); */
+
+        for (Compra compra : compras) {
+            Object[] rowData = {compra.getFilme().getTitulo(), compra.getFilme().getDataLancamento(), compra.getFilme().getElenco(), compra.getFilme().getSinopse(), compra.getQuantidade() };
+            modelo.addRow(rowData);
         }
     }// GEN-LAST:event_botaoPesquisaActionPerformed
 
